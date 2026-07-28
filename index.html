@@ -1,0 +1,1447 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSE Ready - Professional Level</title>
+
+    <!-- 1. Add Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. Configure Tailwind to use your custom colors -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              border: "hsl(var(--border))",
+              input: "hsl(var(--input))",
+              ring: "hsl(var(--ring))",
+              background: "hsl(var(--background))",
+              foreground: "hsl(var(--foreground))",
+              primary: {
+                DEFAULT: "hsl(var(--primary))",
+                foreground: "hsl(var(--primary-foreground))",
+              },
+              secondary: {
+                DEFAULT: "hsl(var(--secondary))",
+                foreground: "hsl(var(--secondary-foreground))",
+              },
+              destructive: {
+                DEFAULT: "hsl(var(--destructive))",
+                foreground: "hsl(var(--destructive-foreground))",
+              },
+              warning: {
+                DEFAULT: "hsl(var(--warning))",
+                light: "hsl(var(--warning-light))",
+              },
+              success: {
+                DEFAULT: "hsl(var(--success))",
+              },
+              muted: {
+                DEFAULT: "hsl(var(--muted))",
+                foreground: "hsl(var(--muted-foreground))",
+              },
+              card: {
+                DEFAULT: "hsl(var(--card))",
+                foreground: "hsl(var(--card-foreground))",
+              },
+            },
+            borderRadius: {
+              lg: "var(--radius)",
+              md: "calc(var(--radius) - 2px)",
+              sm: "calc(var(--radius) - 4px)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- 3. Link your standard CSS variables and animations -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body
+    class="bg-background text-foreground antialiased min-h-screen font-sans"
+  >
+    <!-- TOP NAVIGATION BAR -->
+    <nav
+      id="top-nav"
+      class="fixed top-0 left-0 w-full z-50 transition-all duration-300 transform bg-transparent py-2"
+    >
+      <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <!-- Logo Area -->
+        <div
+          class="flex items-center gap-3 cursor-pointer"
+          onclick="navigate('dashboard')"
+        >
+          <div
+            class="bg-secondary p-2 rounded-xl text-primary shadow-sm border border-border"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-6 h-6"
+            >
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <div>
+            <h1
+              class="font-black text-2xl leading-none text-primary tracking-tight"
+            >
+              CSE Ready
+            </h1>
+            <p
+              class="text-[11px] uppercase tracking-widest text-muted-foreground font-bold mt-0.5"
+            >
+              Professional Level
+            </p>
+          </div>
+        </div>
+
+        <!-- Nav Links -->
+        <div
+          class="hidden md:flex gap-2 items-center bg-card/80 p-1.5 rounded-xl border border-border shadow-sm"
+        >
+          <a
+            href="#"
+            onclick="navigate('dashboard')"
+            id="nav-dashboard"
+            class="nav-item flex items-center gap-2 text-sm font-bold bg-secondary text-primary px-4 py-2 rounded-lg shadow-sm border border-border/50"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-4 h-4"
+            >
+              <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+              <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+              <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+              <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+            </svg>
+            Dashboard
+          </a>
+          <a
+            href="#"
+            onclick="navigate('exam-setup')"
+            id="nav-take-exam"
+            class="nav-item flex items-center gap-2 text-sm font-semibold text-foreground px-4 py-2 rounded-lg hover:bg-white/50 hover:text-primary transition-all"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-4 h-4"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="10 8 16 12 10 16 10 8"></polygon>
+            </svg>
+            Take Exam
+          </a>
+          <a
+            href="#"
+            class="nav-item flex items-center gap-2 text-sm font-semibold text-foreground px-4 py-2 rounded-lg hover:bg-white/50 hover:text-primary transition-all opacity-50 cursor-not-allowed"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-4 h-4"
+            >
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            Study Materials
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-20 pb-20 lg:pb-8 min-h-full">
+      <!-- ========================================== -->
+      <!-- 1. DASHBOARD SCREEN                        -->
+      <!-- ========================================== -->
+      <div
+        id="dashboard"
+        class="screen px-6 py-4 md:px-8 md:pt-4 md:pb-8 max-w-7xl mx-auto space-y-6 page-enter"
+      >
+        <!-- Header Section -->
+        <div
+          class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+        >
+          <div>
+            <!-- Name changed to Examiner! -->
+            <h1 class="text-3xl font-black text-foreground">
+              Good day, Examiner!
+            </h1>
+            <p class="text-muted-foreground text-sm mt-1 font-medium">
+              Ready to practice for the Civil Service Exam?
+            </p>
+          </div>
+          <button
+            onclick="navigate('exam-setup')"
+            class="inline-flex items-center justify-center h-11 rounded-full px-8 bg-primary text-primary-foreground shadow-lg shadow-primary/30 gap-2 font-bold transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-5 h-5"
+            >
+              <path
+                d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"
+              ></path>
+              <circle cx="12" cy="12" r="10"></circle>
+            </svg>
+            Start Mock Exam
+          </button>
+        </div>
+
+        <!-- Top Stats Row -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow-sm border-border hover-lift cursor-default"
+          >
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="text-muted-foreground text-xs font-bold uppercase tracking-wider"
+                  >Exams Taken</span
+                >
+                <div
+                  class="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-square-library-icon lucide-square-library"
+                  >
+                    <rect width="18" height="18" x="3" y="3" rx="2" />
+                    <path d="M7 7v10" />
+                    <path d="M11 7v10" />
+                    <path d="m15 7 2 10" />
+                  </svg>
+                </div>
+              </div>
+              <p
+                id="stat-exams-taken"
+                class="text-4xl font-black text-foreground"
+              >
+                0
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow-sm border-border hover-lift cursor-default"
+          >
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="text-muted-foreground text-xs font-bold uppercase tracking-wider"
+                  >Avg Score</span
+                >
+                <div
+                  class="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-goal-icon lucide-goal"
+                  >
+                    <path d="M12 13V2l8 4-8 4" />
+                    <path d="M20.561 10.222a9 9 0 1 1-12.55-5.29" />
+                    <path d="M8.002 9.997a5 5 0 1 0 8.9 2.02" />
+                  </svg>
+                </div>
+              </div>
+              <p
+                id="stat-avg-score"
+                class="text-4xl font-black text-foreground"
+              >
+                0%
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow-sm border-border hover-lift cursor-default"
+          >
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="text-muted-foreground text-xs font-bold uppercase tracking-wider"
+                  >Study Streak</span
+                >
+                <div
+                  class="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-zodiac-sagittarius-icon lucide-zodiac-sagittarius"
+                  >
+                    <path d="M15 3h6v6" />
+                    <path d="M21 3 3 21" />
+                    <path d="m9 9 6 6" />
+                  </svg>
+                </div>
+              </div>
+              <p class="text-4xl font-black text-foreground">
+                <span id="stat-streak">0</span
+                ><span class="text-base font-bold text-muted-foreground ml-1"
+                  >days</span
+                >
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow-sm border-border hover-lift cursor-default"
+          >
+            <div class="p-5">
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="text-muted-foreground text-xs font-bold uppercase tracking-wider"
+                  >Readiness</span
+                >
+                <div
+                  class="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-circle-arrow-out-up-left-icon lucide-circle-arrow-out-up-left"
+                  >
+                    <path d="M2 8V2h6" />
+                    <path d="m2 2 10 10" />
+                    <path d="M12 2A10 10 0 1 1 2 12" />
+                  </svg>
+                </div>
+              </div>
+              <p id="stat-readiness" class="text-xl font-black text-primary">
+                No data yet
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Goal Progress Section -->
+        <div
+          class="rounded-xl border bg-card text-card-foreground shadow-sm border-border"
+        >
+          <div class="p-5">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-5 h-5 text-primary"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="6"></circle>
+                  <circle cx="12" cy="12" r="2"></circle>
+                </svg>
+                <span class="text-sm font-bold text-foreground"
+                  >Goal: 80% avg score</span
+                >
+              </div>
+              <span id="goal-current" class="text-sm font-black text-primary"
+                >0% current</span
+              >
+            </div>
+            <div
+              class="relative w-full overflow-hidden rounded-full bg-secondary h-3 shadow-inner"
+            >
+              <div
+                id="goal-bar"
+                class="h-full w-full flex-1 bg-primary rounded-full transition-all"
+                style="transform: translateX(-100%)"
+              ></div>
+            </div>
+            <p
+              id="goal-remaining"
+              class="text-xs font-semibold text-muted-foreground mt-2"
+            >
+              Take your first exam to get started!
+            </p>
+          </div>
+        </div>
+
+        <!-- Main Charts & Subjects Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Chart Section -->
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow-sm lg:col-span-2 border-border"
+          >
+            <div class="flex flex-col space-y-1.5 p-6 pb-4">
+              <h3 class="font-bold tracking-tight text-lg text-foreground">
+                Recent Performance
+              </h3>
+            </div>
+            <div class="p-6 pt-0">
+              <div
+                id="performance-chart-container"
+                style="width: 100%; height: 220px; position: relative"
+              >
+                <!-- Chart is rendered dynamically by renderPerformanceChart() in script.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Subject Performance -->
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow-sm border-border"
+          >
+            <div class="flex flex-col space-y-1.5 p-6 pb-4">
+              <h3 class="font-bold tracking-tight text-lg text-foreground">
+                Subject Performance
+              </h3>
+            </div>
+            <div class="p-6 pt-0 space-y-5">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-bold text-foreground"
+                    >Verbal Ability</span
+                  >
+                  <span
+                    id="subj-Verbal Ability-pct"
+                    class="text-sm font-black text-primary"
+                    >0%</span
+                  >
+                </div>
+                <div
+                  class="relative w-full overflow-hidden rounded-full bg-secondary h-2 shadow-inner"
+                >
+                  <div
+                    id="subj-Verbal Ability-bar"
+                    class="h-full w-full flex-1 bg-primary transition-all rounded-full"
+                    style="transform: translateX(-100%)"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-bold text-foreground"
+                    >Analytical Ability</span
+                  >
+                  <span
+                    id="subj-Analytical Ability-pct"
+                    class="text-sm font-black text-primary"
+                    >0%</span
+                  >
+                </div>
+                <div
+                  class="relative w-full overflow-hidden rounded-full bg-secondary h-2 shadow-inner"
+                >
+                  <div
+                    id="subj-Analytical Ability-bar"
+                    class="h-full w-full flex-1 bg-primary transition-all rounded-full"
+                    style="transform: translateX(-100%)"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-bold text-foreground"
+                    >Numerical Ability</span
+                  >
+                  <span
+                    id="subj-Numerical Ability-pct"
+                    class="text-sm font-black text-primary"
+                    >0%</span
+                  >
+                </div>
+                <div
+                  class="relative w-full overflow-hidden rounded-full bg-secondary h-2 shadow-inner"
+                >
+                  <div
+                    id="subj-Numerical Ability-bar"
+                    class="h-full w-full flex-1 bg-primary transition-all rounded-full"
+                    style="transform: translateX(-100%)"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-bold text-foreground"
+                    >General Info</span
+                  >
+                  <span
+                    id="subj-General Information-pct"
+                    class="text-sm font-black text-primary"
+                    >0%</span
+                  >
+                </div>
+                <div
+                  class="relative w-full overflow-hidden rounded-full bg-secondary h-2 shadow-inner"
+                >
+                  <div
+                    id="subj-General Information-bar"
+                    class="h-full w-full flex-1 bg-primary transition-all rounded-full"
+                    style="transform: translateX(-100%)"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Focus Areas & Quick Actions Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Focus Areas -->
+          <div
+            class="rounded-xl border text-card-foreground shadow-sm border-border bg-card"
+          >
+            <div class="flex flex-col space-y-1.5 p-6 pb-3">
+              <h3
+                class="font-bold tracking-tight text-lg flex items-center gap-2 text-foreground"
+              >
+                <div class="p-1.5 bg-primary/10 rounded-md text-primary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-4 h-4"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" x2="12" y1="8" y2="12"></line>
+                    <line x1="12" x2="12.01" y1="16" y2="16"></line>
+                  </svg>
+                </div>
+                Focus Areas
+              </h3>
+            </div>
+
+            <div id="focus-areas-list" class="p-6 pt-0 space-y-3">
+              <!-- Populated dynamically by renderFocusAreas() in script.js -->
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div
+            class="rounded-xl border bg-card text-card-foreground shadow-sm border-border"
+          >
+            <div class="flex flex-col space-y-1.5 p-6 pb-3">
+              <h3 class="font-bold tracking-tight text-lg">Quick Actions</h3>
+            </div>
+
+            <div class="p-6 pt-0 space-y-3">
+              <a
+                href="#"
+                onclick="
+                  navigate('exam-setup');
+                  return false;
+                "
+                class="flex items-center gap-4 p-4 rounded-xl border border-border bg-background hover:border-primary/40 hover:shadow-md transition-all duration-200 group"
+              >
+                <div
+                  class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white text-primary transition-all duration-200 shadow-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-5 h-5"
+                  >
+                    <path
+                      d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"
+                    ></path>
+                    <circle cx="12" cy="12" r="10"></circle>
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-bold text-foreground">
+                    Take a Mock Exam
+                  </p>
+                  <p class="text-xs font-semibold text-muted-foreground mt-0.5">
+                    Test your readiness
+                  </p>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-200"
+                >
+                  <path d="m9 18 6-6-6-6"></path>
+                </svg>
+              </a>
+
+              <a
+                href="#"
+                class="flex items-center gap-4 p-4 rounded-xl border border-border bg-background hover:border-primary/40 hover:shadow-md transition-all duration-200 group opacity-50 cursor-not-allowed"
+              >
+                <div
+                  class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0 text-primary shadow-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-5 h-5"
+                  >
+                    <path d="M12 7v14"></path>
+                    <path
+                      d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-bold text-foreground">
+                    Browse Study Materials
+                  </p>
+                  <p class="text-xs font-semibold text-muted-foreground mt-0.5">
+                    All 4 subjects covered
+                  </p>
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="w-5 h-5 text-muted-foreground"
+                >
+                  <path d="m9 18 6-6-6-6"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 2. EXAM SETUP SCREEN                       -->
+      <!-- ========================================== -->
+      <div
+        id="exam-setup"
+        class="screen hidden max-w-3xl mx-auto px-4 py-8 page-enter"
+      >
+        <div class="text-center mb-8">
+          <div
+            class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-secondary mb-4 shadow-sm border border-border text-primary"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+              ></path>
+              <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+              <path d="M10 9H8"></path>
+              <path d="M16 13H8"></path>
+              <path d="M16 17H8"></path>
+            </svg>
+          </div>
+          <h1 class="text-3xl font-black text-foreground mb-2">Start Exam</h1>
+          <p class="text-muted-foreground font-medium">
+            Choose your exam type and difficulty level
+          </p>
+        </div>
+
+        <!-- Tabs -->
+        <div
+          class="flex p-1.5 rounded-xl bg-card border border-border shadow-sm mb-8"
+        >
+          <button
+            onclick="setExamTab('mock')"
+            id="tab-mock"
+            class="flex-1 py-2.5 px-3 rounded-lg text-sm font-bold transition-all bg-secondary text-primary shadow-sm border border-border/50"
+          >
+            Mock Exam
+          </button>
+          <button
+            onclick="setExamTab('subject')"
+            id="tab-subject"
+            class="flex-1 py-2.5 px-3 rounded-lg text-sm font-semibold transition-all text-muted-foreground hover:text-foreground"
+          >
+            Subject Practice
+          </button>
+          <button
+            onclick="setExamTab('full')"
+            id="tab-full"
+            class="flex-1 py-2.5 px-3 rounded-lg text-sm font-semibold transition-all flex items-center justify-center gap-2 text-muted-foreground hover:text-foreground"
+          >
+            Full Exam
+          </button>
+        </div>
+
+        <!-- Difficulty Selection -->
+        <div class="mb-6">
+          <h2
+            class="text-sm font-bold text-foreground mb-3 uppercase tracking-wider"
+          >
+            Difficulty
+          </h2>
+          <div class="grid grid-cols-4 gap-3">
+            <button
+              onclick="setDifficulty('easy')"
+              id="diff-easy"
+              class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all text-center border-success bg-success/10 text-success"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+                ></path>
+              </svg>
+              <span class="text-xs font-bold">Easy</span>
+            </button>
+            <button
+              onclick="setDifficulty('medium')"
+              id="diff-medium"
+              class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all text-center border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-primary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-brain-icon lucide-brain"
+              >
+                <path d="M12 18V5" />
+                <path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4" />
+                <path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5" />
+                <path d="M17.997 5.125a4 4 0 0 1 2.526 5.77" />
+                <path d="M18 18a4 4 0 0 0 2-7.464" />
+                <path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517" />
+                <path d="M6 18a4 4 0 0 1-2-7.464" />
+                <path d="M6.003 5.125a4 4 0 0 0-2.526 5.77" />
+              </svg>
+              <span class="text-xs font-bold">Medium</span>
+            </button>
+            <button
+              onclick="setDifficulty('hard')"
+              id="diff-hard"
+              class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all text-center border-border bg-card text-muted-foreground hover:border-primary/50 hover:text-primary"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-biceps-flexed-icon lucide-biceps-flexed"
+              >
+                <path
+                  d="M12.409 13.017A5 5 0 0 1 22 15c0 3.866-4 7-9 7-4.077 0-8.153-.82-10.371-2.462-.426-.316-.631-.832-.62-1.362C2.118 12.723 2.627 2 10 2a3 3 0 0 1 3 3 2 2 0 0 1-2 2c-1.105 0-1.64-.444-2-1"
+                />
+                <path d="M15 14a5 5 0 0 0-7.584 2" />
+                <path d="M9.964 6.825C8.019 7.977 9.5 13 8 15" />
+              </svg>
+              <span class="text-xs font-bold">Hard</span>
+            </button>
+            <button
+              id="diff-mixed"
+              disabled
+              class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all text-center border-border bg-card opacity-50 cursor-not-allowed text-muted-foreground"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span class="text-xs font-bold">Mixed</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Info Card -->
+        <div
+          id="setup-info-card"
+          class="rounded-xl border bg-card text-card-foreground shadow-sm p-6 mb-6 border-border"
+        >
+          <!-- Replaced dynamically by JS -->
+        </div>
+
+        <button
+          onclick="startExam()"
+          class="w-full h-14 rounded-xl bg-primary text-primary-foreground font-black text-lg shadow-lg hover:-translate-y-0.5 transition-all flex justify-center items-center gap-2"
+        >
+          <span id="start-btn-text">Start Easy Mock Exam</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-5 h-5"
+          >
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 3. ACTIVE EXAM SCREEN                      -->
+      <!-- ========================================== -->
+      <div
+        id="active-exam"
+        class="screen hidden max-w-6xl mx-auto px-4 page-enter"
+      >
+        <!-- Exam Header -->
+        <div
+          class="flex items-center justify-between bg-card border border-border p-4 rounded-2xl shadow-sm mb-6 mt-4"
+        >
+          <div class="flex items-center gap-4">
+            <div
+              class="flex items-center gap-2 bg-secondary text-primary px-3 py-1.5 rounded-lg font-bold border border-border/50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span id="time-display">60:00</span>
+            </div>
+            <span class="text-sm font-semibold text-muted-foreground"
+              ><span id="answered-count">0</span>/<span id="total-count"
+                >50</span
+              >
+              answered</span
+            >
+          </div>
+          <div class="flex items-center gap-3">
+            <button
+              onclick="openSubmitModal()"
+              class="bg-primary text-primary-foreground px-6 py-2 rounded-lg font-bold shadow-md hover:bg-primary/90 transition-colors"
+            >
+              Submit Exam
+            </button>
+            <button
+              onclick="navigate('dashboard')"
+              class="text-muted-foreground hover:text-foreground font-semibold text-sm flex items-center gap-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" x2="9" y1="12" y2="12"></line>
+              </svg>
+              Exit
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <!-- Question Area -->
+          <div class="lg:col-span-3 flex flex-col gap-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <h2
+                  id="question-number"
+                  class="text-lg font-black text-foreground"
+                >
+                  Question 1 of 50
+                </h2>
+                <span
+                  id="question-subject"
+                  class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-md font-bold border border-blue-200"
+                  >Verbal Ability</span
+                >
+              </div>
+              <button
+                onclick="toggleFlag()"
+                id="flag-btn"
+                class="flex items-center gap-2 border border-border bg-card px-3 py-1.5 rounded-lg text-sm font-bold text-muted-foreground hover:text-warning hover:border-warning/50 transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"
+                  ></path>
+                  <line x1="4" x2="4" y1="22" y2="15"></line>
+                </svg>
+                Flag
+              </button>
+            </div>
+
+            <div
+              class="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm text-lg font-medium text-foreground leading-relaxed min-h-[120px]"
+            >
+              <p id="question-text">Loading question...</p>
+            </div>
+
+            <div id="options-container" class="flex flex-col gap-3">
+              <!-- Options populated by JS -->
+            </div>
+
+            <!-- Hint Section -->
+            <div class="mt-2">
+              <button
+                onclick="showHint()"
+                class="text-sm font-bold text-primary flex items-center gap-1 hover:underline"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 16v-4"></path>
+                  <path d="M12 8h.01"></path>
+                </svg>
+                Show Hint
+              </button>
+              <div
+                id="hint-text"
+                class="hidden mt-2 p-4 bg-secondary border border-border rounded-xl text-sm font-medium text-muted-foreground"
+              ></div>
+            </div>
+
+            <div
+              class="flex justify-between items-center mt-6 border-t border-border pt-6"
+            >
+              <button
+                onclick="prevQuestion()"
+                class="flex items-center gap-2 font-bold text-muted-foreground hover:text-foreground px-4 py-2 rounded-lg hover:bg-card border border-transparent hover:border-border transition-all"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m15 18-6-6 6-6"></path>
+                </svg>
+                Previous
+              </button>
+              <span
+                id="question-tracker"
+                class="font-bold text-muted-foreground"
+                >1 / 50</span
+              >
+              <button
+                onclick="nextQuestion()"
+                class="flex items-center gap-2 font-bold bg-primary text-primary-foreground px-6 py-2.5 rounded-xl shadow-md hover:bg-primary/90 transition-all hover:-translate-y-0.5"
+              >
+                Next
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m9 18 6-6-6-6"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Navigator Grid -->
+          <div class="lg:col-span-1">
+            <div
+              class="bg-card border border-border rounded-2xl p-5 shadow-sm sticky top-24"
+            >
+              <h3
+                class="text-xs font-black uppercase tracking-widest text-muted-foreground mb-4"
+              >
+                Navigator
+              </h3>
+              <div id="grid-navigator" class="grid grid-cols-5 gap-2 mb-6">
+                <!-- Grid populated by JS -->
+              </div>
+
+              <!-- Legend -->
+              <div
+                class="space-y-2 text-sm font-semibold text-muted-foreground mb-6"
+              >
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-full bg-primary"></div>
+                  Answered
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-3 h-3 rounded-full bg-warning"></div>
+                  Flagged
+                </div>
+                <div class="flex items-center gap-2">
+                  <div
+                    class="w-3 h-3 rounded-full border-2 border-border"
+                  ></div>
+                  Unanswered
+                </div>
+              </div>
+
+              <div
+                class="bg-warning/20 border border-warning/50 text-warning p-3 rounded-xl flex items-center justify-center gap-2 font-bold text-sm"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"
+                  ></path>
+                  <line x1="12" x2="12" y1="9" y2="13"></line>
+                  <line x1="12" x2="12.01" y1="17" y2="17"></line>
+                </svg>
+                <span id="unanswered-warning">50 unanswered</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Submit Modal -->
+      <div
+        id="submit-modal"
+        class="fixed inset-0 bg-foreground/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4"
+      >
+        <div
+          class="bg-card w-full max-w-md rounded-2xl p-8 shadow-2xl border border-border transform scale-100"
+        >
+          <h2 class="text-2xl font-black text-foreground mb-3">Submit Exam?</h2>
+          <p
+            id="submit-modal-text"
+            class="text-muted-foreground font-medium mb-8 leading-relaxed"
+          >
+            You have answered 0 of 50 questions. 50 questions will be marked as
+            unanswered. Time remaining: 59:06.
+          </p>
+          <div class="flex justify-end gap-3">
+            <button
+              onclick="closeSubmitModal()"
+              class="px-5 py-2.5 rounded-xl font-bold text-foreground hover:bg-secondary border border-transparent hover:border-border transition-colors"
+            >
+              Continue Exam
+            </button>
+            <button
+              onclick="submitExam()"
+              class="px-6 py-2.5 rounded-xl font-bold bg-primary text-primary-foreground shadow-md hover:bg-primary/90 transition-colors"
+            >
+              Submit Exam
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 4. RESULTS SCREEN                          -->
+      <!-- ========================================== -->
+      <div
+        id="exam-results"
+        class="screen hidden max-w-3xl mx-auto px-4 py-8 page-enter"
+      >
+        <!-- Big Result Banner -->
+        <div
+          class="bg-card border border-border rounded-3xl p-10 text-center shadow-lg relative overflow-hidden mb-6"
+        >
+          <div
+            id="result-icon-bg"
+            class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4"
+          >
+            <svg
+              id="result-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></svg>
+          </div>
+          <h1
+            id="result-status"
+            class="text-4xl font-black mb-2 tracking-tight uppercase"
+          >
+            FAILED
+          </h1>
+          <p class="text-muted-foreground font-medium mb-6">
+            Keep practicing! Review the materials and try again.
+          </p>
+
+          <div
+            id="final-score"
+            class="text-7xl font-black text-foreground tracking-tighter mb-6"
+          >
+            0%
+          </div>
+
+          <div
+            class="flex items-center justify-center gap-6 text-sm font-bold text-muted-foreground mb-6"
+          >
+            <span class="flex items-center gap-1"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-success"
+              >
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span id="res-correct-count">0/50 correct</span></span
+            >
+            <span class="flex items-center gap-1"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span id="res-time-taken">00:00 taken</span></span
+            >
+          </div>
+
+          <div
+            class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-secondary text-primary font-bold text-xs border border-border/50"
+          >
+            Passing score: 80%
+          </div>
+        </div>
+
+        <!-- Subject Breakdown -->
+        <div
+          class="bg-card border border-border rounded-3xl p-8 shadow-sm mb-6"
+        >
+          <h3 class="font-black text-foreground mb-6">Subject Breakdown</h3>
+          <div id="results-breakdown" class="space-y-6">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button
+            onclick="navigate('exam-review')"
+            class="flex items-center justify-center gap-2 p-4 rounded-xl border border-border bg-card font-bold hover:bg-secondary transition-colors shadow-sm"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            Review Answers
+          </button>
+          <button
+            disabled
+            class="flex items-center justify-center gap-2 p-4 rounded-xl border border-border bg-card font-bold text-muted-foreground opacity-50 cursor-not-allowed"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            Study Materials
+          </button>
+          <button
+            onclick="navigate('exam-setup')"
+            class="flex items-center justify-center gap-2 p-4 rounded-xl bg-primary text-primary-foreground font-bold shadow-md hover:bg-primary/90 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+              ></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
+            Take Another Exam
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 5. EXAM REVIEW SCREEN                      -->
+      <!-- ========================================== -->
+      <div
+        id="exam-review"
+        class="screen hidden max-w-4xl mx-auto px-4 py-8 page-enter"
+      >
+        <div
+          class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 bg-card border border-border p-4 rounded-2xl shadow-sm"
+        >
+          <div>
+            <h1 class="text-2xl font-black text-foreground">Exam Review</h1>
+            <p class="text-sm font-semibold text-muted-foreground">
+              <span id="review-total">50</span> questions
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button
+              onclick="filterReview('all')"
+              id="filter-all"
+              class="review-filter active px-4 py-2 rounded-lg font-bold text-sm bg-primary text-primary-foreground shadow-sm"
+            >
+              All (<span id="count-all">0</span>)
+            </button>
+            <button
+              onclick="filterReview('correct')"
+              id="filter-correct"
+              class="review-filter px-4 py-2 rounded-lg font-bold text-sm bg-secondary text-foreground hover:bg-border/50 transition-colors"
+            >
+              Correct (<span id="count-correct">0</span>)
+            </button>
+            <button
+              onclick="filterReview('wrong')"
+              id="filter-wrong"
+              class="review-filter px-4 py-2 rounded-lg font-bold text-sm bg-secondary text-foreground hover:bg-border/50 transition-colors"
+            >
+              Wrong (<span id="count-wrong">0</span>)
+            </button>
+            <button
+              onclick="filterReview('flagged')"
+              id="filter-flagged"
+              class="review-filter px-4 py-2 rounded-lg font-bold text-sm bg-secondary text-foreground hover:bg-border/50 transition-colors"
+            >
+              Flagged (<span id="count-flagged">0</span>)
+            </button>
+          </div>
+        </div>
+
+        <div id="review-list" class="space-y-6 mb-8">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div
+          class="flex justify-between items-center border-t border-border pt-6"
+        >
+          <button
+            onclick="navigate('exam-results')"
+            class="font-bold text-muted-foreground hover:text-foreground px-4 py-2"
+          >
+            ← Back to Result
+          </button>
+          <button
+            onclick="navigate('exam-setup')"
+            class="bg-primary text-primary-foreground font-bold px-6 py-2.5 rounded-xl shadow-md hover:-translate-y-0.5 transition-all"
+          >
+            Take Another Exam
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script src="./script.js"></script>
+    <script src="./questions.js"></script>
+  </body>
+</html>

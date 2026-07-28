@@ -1,0 +1,83 @@
+:root {
+  /* BACKGROUND: Very Light Cream (#FFFAF3) */
+  --background: 35 100% 97.6%;
+  --foreground: 0 0% 10%;
+
+  /* CARDS: Light Yellow/Cream (#FFF2DB) */
+  --card: 39 100% 92.9%;
+  --card-foreground: 0 0% 10%;
+
+  /* BORDERS: Warm Yellow (#FFE5BF) */
+  --border: 35.6 100% 87.5%;
+  --input: 35.6 100% 87.5%;
+  --ring: 352 91.5% 55.3%;
+
+  /* PRIMARY: Vibrant Red (#F62440) */
+  --primary: 352 91.5% 55.3%;
+  --primary-foreground: 0 0% 100%; /* White text on red */
+
+  /* SECONDARY: Warm Yellow (#FFE5BF) */
+  --secondary: 35.6 100% 87.5%;
+  --secondary-foreground: 352 91.5% 55.3%; /* Red text on yellow */
+
+  /* MUTED: Light Yellow/Cream (#FFF2DB) */
+  --muted: 39 100% 92.9%;
+  --muted-foreground: 30 10% 40%; /* Brownish gray for readability */
+
+  /* ALERTS & STATUS */
+  --accent: 35.6 100% 87.5%;
+  --accent-foreground: 352 91.5% 55.3%;
+
+  --destructive: 352 91.5% 55.3%; /* Using your primary red for destructive */
+  --destructive-foreground: 0 0% 100%;
+
+  --warning: 38 92% 50%;
+  --warning-light: 39 100% 92.9%;
+
+  --success: 142 71% 45%;
+
+  --radius: 0.75rem;
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-enter {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  opacity: 0;
+  animation: slideInRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.hover-lift {
+  transition:
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.05),
+    0 4px 6px -2px rgba(0, 0, 0, 0.025);
+}
