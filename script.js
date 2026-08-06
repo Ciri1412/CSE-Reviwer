@@ -383,6 +383,25 @@ function startExam() {
     return;
   }
 
+  // --- ADD THIS FLATTENING LOGIC ---
+  let flattenedQuestions = [];
+  currentQuestions.forEach((item) => {
+    if (item.type === "group") {
+      // If it's a group, pull out the questions but attach the image and instructions to each one
+      item.questions.forEach((subQ) => {
+        flattenedQuestions.push({
+          ...subQ,
+          instruction: item.instruction,
+          referenceImage: item.referenceImage,
+        });
+      });
+    } else {
+      flattenedQuestions.push(item);
+    }
+  });
+  currentQuestions = flattenedQuestions;
+  // --- END FLATTENING LOGIC ---
+
   // Shuffle each question's A/B/C/D order so repeated questions still
   // require actually knowing the answer, not just remembering the letter.
   currentQuestions = randomizeChoicesForExam(currentQuestions);
@@ -422,12 +441,43 @@ function startTimer() {
 
 function renderQuestion() {
   const q = currentQuestions[currentIndex];
-  document.getElementById("question-number").innerText =
+  document.getElementById("question-number").innerHTML =
     `Question ${currentIndex + 1} of ${currentQuestions.length}`;
-  document.getElementById("question-subject").innerText = q.subject;
-  document.getElementById("question-text").innerText = q.text;
-  document.getElementById("question-tracker").innerText =
+  document.getElementById("question-subject").innerHTML = q.subject;
+  document.getElementById("question-text").innerHTML = q.text;
+  document.getElementById("question-tracker").innerHTML =
     `${currentIndex + 1} / ${currentQuestions.length}`;
+
+  // --- ADD THIS IMAGE/PASSAGE RENDERING LOGIC ---
+  const refContainer = document.getElementById("reference-container");
+  const refInstruction = document.getElementById("reference-instruction");
+  const refImage = document.getElementById("reference-image");
+
+  // Check if the question has EITHER an instruction (passage) OR an image
+  if (q.instruction || q.referenceImage) {
+    refContainer.classList.remove("hidden");
+
+    // 1. Handle the text passage / instruction
+    if (q.instruction) {
+      // .replace(/\n/g, '<br>') allows you to use \n in your database to create paragraph breaks!
+      refInstruction.innerHTML = q.instruction.replace(/\n/g, "<br>");
+      refInstruction.classList.remove("hidden");
+    } else {
+      refInstruction.classList.add("hidden");
+    }
+
+    // 2. Handle the image
+    if (q.referenceImage) {
+      refImage.src = q.referenceImage;
+      refImage.classList.remove("hidden");
+    } else {
+      refImage.classList.add("hidden"); // Hides the broken image icon if there's no photo
+    }
+  } else {
+    // Hide the whole box if it's a normal question with no passage and no image
+    refContainer.classList.add("hidden");
+  }
+  // --- END IMAGE/PASSAGE LOGIC ---
 
   const flagBtn = document.getElementById("flag-btn");
   if (flaggedQuestions.has(currentIndex)) {
